@@ -18,7 +18,7 @@
 #include "FGCharacterPlayer.h"
 #include "FGBuildableSubsystem.h"
 #include "FactorySkyline/FSBuildableService.h"
-#include "FGBuildablePipelineSupport.h"
+#include "FGBuildablePolePipe.h"
 #include "FGRailroadTrackConnectionComponent.h"
 
 #include "FSBuildable.h"
@@ -61,8 +61,8 @@ class FACTORYSKYLINE_API UFSSplineHologramFactory : public UObject
 public:
 
 	AFGBuildablePole* ConveyorPole;
-	AFGBuildablePipelineSupport* PipelineSupport;
-	AFGBuildablePipelineSupport* PipelineHyperSupport;
+	AFGBuildablePolePipe* PipelineSupport;
+	AFGBuildablePolePipe* PipelineHyperSupport;
 
 	AFGBuildableSubsystem* BuildableSubsystem = nullptr;
 	//AFGBuildGun* FGBuildGun = nullptr;

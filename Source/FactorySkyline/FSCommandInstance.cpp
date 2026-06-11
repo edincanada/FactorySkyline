@@ -13,7 +13,8 @@
 
 AFSCommandInstance::AFSCommandInstance() {
 	CommandName = TEXT("Skyline");
-	Usage = TEXT("/Skyline - Factory Skyline");
+	// TODO FIX THIS FOR SML 3.10.0
+	//Usage = TEXT("/Skyline - Factory Skyline");
 }
 
 

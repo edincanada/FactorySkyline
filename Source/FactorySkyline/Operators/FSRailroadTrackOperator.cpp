@@ -97,6 +97,8 @@ AFGHologram* UFSRailroadTrackOperator::HologramCopy(FTransform& RelativeTransfor
 	splineHologram->mSplineData = TargetData;
 
 	splineHologram->OnRep_SplineData();
+	splineHologram->UpdateSplineComponent();
+	splineHologram->UpdateClearanceData();
 	
 	//TODO DO WE NEED A ALTERNATIVE TO THIS?
 	//Hologram->OnPendingConstructionHologramCreated_Implementation(Hologram);

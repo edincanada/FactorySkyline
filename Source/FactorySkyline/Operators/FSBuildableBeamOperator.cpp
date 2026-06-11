@@ -137,6 +137,8 @@ AFGBuildable* UFSBuildableBeamOperator::CreateCopy(const FSTransformOperator& Tr
 	BuildableBeam->mMaxLength = SourceBuildableBeam->mMaxLength;
 	BuildableBeam->mLength = SourceBuildableBeam->mLength;
 
+	BuildableBeam->SetLength(SourceBuildableBeam->GetLength());
+
 	//AFGBuildableConveyorLift* SourceConveyorLift = Cast<AFGBuildableConveyorLift>(Source);
 	//AFGBuildableConveyorLift* TargetConveyorLift = Cast<AFGBuildableConveyorLift>(Buildable);
 

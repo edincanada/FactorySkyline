@@ -102,7 +102,7 @@ AFGBuildable* UFSBuildableSignOperator::CreateCopy(const FSTransformOperator& Tr
 	BuildableSign->mGlossiness = SourceBuildableSign->mGlossiness;
 	BuildableSign->mDataVersion = SourceBuildableSign->mDataVersion;
 	*/
-	BuildableSign->PasteSettings_Implementation(SourceBuildableSign->CopySettings_Implementation());
+	BuildableSign->PasteSettings_Implementation(SourceBuildableSign->CopySettings_Implementation(), nullptr);
 	//BuildableSign->OnRep_SignDataDirty();
 	//BuildableBeam->mDefaultLength = SourceBuildableBeam->mDefaultLength;
 	//BuildableBeam->mMaxLength = SourceBuildableBeam->mMaxLength;

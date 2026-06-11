@@ -193,6 +193,8 @@ void UFSCopyPanel::CopyToBpDesigner()
 
 		TArray< class AFGBuildable* > mBuildables;
 
+		TMap<AFGBuildableConveyorBase*, AFGConveyorChainActor*> BuildableMapping;
+
 
 		//TODO REWORK THIS AS SOME BUILDABLES DONT EXIST AS THE SAME TYPE ANYMORE
 
@@ -203,6 +205,19 @@ void UFSCopyPanel::CopyToBpDesigner()
 
 			if (BuildablePtr.Buildable) {
 				Designer->mBuildables.Add(BuildablePtr.Buildable);
+
+				if (BuildablePtr.Buildable->GetClass()->IsChildOf<AFGBuildableConveyorBelt>()) {
+
+					AFGBuildableConveyorBase* ConveyorBase = Cast<AFGBuildableConveyorBase>(BuildablePtr.Buildable);
+
+					AFGConveyorChainActor* ChainActor = Cast<AFGConveyorChainActor>(ConveyorBase->mConveyorChainActor);
+
+					BuildableMapping.Add(ConveyorBase, ChainActor);
+
+					ConveyorBase->mConveyorChainActor = nullptr;
+
+				}
+
 			}
 			else {
 
@@ -241,9 +256,29 @@ void UFSCopyPanel::CopyToBpDesigner()
 		Buildable->FinishSpawning(Transform);
 
 
-		//Buildable->Destroy();
+		Buildable->Destroy();
 
 		lightweightSubsystem->RemoveStaleTemporaryBuildables();
+
+
+		for (FSBuildable BuildablePtr : Skyline->FSCtrl->Design->BuildableSet) {
+
+			if (BuildablePtr.Buildable) {
+
+				if (BuildablePtr.Buildable->GetClass()->IsChildOf<AFGBuildableConveyorBelt>()) {
+
+					AFGBuildableConveyorBase* ConveyorBase = Cast<AFGBuildableConveyorBase>(BuildablePtr.Buildable);
+
+					AFGConveyorChainActor* ChainActor = Cast<AFGConveyorChainActor>(ConveyorBase->mConveyorChainActor);
+
+					AFGConveyorChainActor* ChainActorMap = *BuildableMapping.Find(ConveyorBase);
+
+					ChainActor = ChainActorMap;
+
+				}
+
+			}
+		}
 
 	}
 	

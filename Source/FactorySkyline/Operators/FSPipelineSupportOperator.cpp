@@ -2,8 +2,8 @@
 
 
 #include "FSPipelineSupportOperator.h"
-#include "FGBuildablePipelineSupport.h"
-#include "Hologram/FGPipelineSupportHologram.h"
+#include "FGBuildablePolePipe.h"
+#include "Hologram/FGPipelinePoleHologram.h"
 
 
 AFGHologram* UFSPipelineSupportOperator::HologramCopy(FTransform& RelativeTransform)
@@ -16,13 +16,13 @@ AFGHologram* UFSPipelineSupportOperator::HologramCopy(FTransform& RelativeTransf
 
 	AFGHologram* Hologram = CreateHologram();
 	if (!Hologram) return nullptr;
-	AFGPipelineSupportHologram* PipelineSupportHologram = Cast<AFGPipelineSupportHologram>(Hologram);
+	AFGPipelinePoleHologram* PipelineSupportHologram = Cast<AFGPipelinePoleHologram>(Hologram);
 	if (!PipelineSupportHologram) return Hologram;
 
-	AFGBuildablePipelineSupport* SourcePipelineSupport = nullptr;
+	AFGBuildablePolePipe* SourcePipelineSupport = nullptr;
 
 	if (Source.Buildable) {
-		SourcePipelineSupport = Cast<AFGBuildablePipelineSupport>(Source.Buildable);
+		SourcePipelineSupport = Cast<AFGBuildablePolePipe>(Source.Buildable);
 	}
 
 	FHitResult Hit;
@@ -41,7 +41,14 @@ AFGHologram* UFSPipelineSupportOperator::HologramCopy(FTransform& RelativeTransf
 	PipelineSupportHologram->SetHologramLocationAndRotation(Hit);
 	PipelineSupportHologram->DoMultiStepPlacement(false);
 	PipelineSupportHologram->SetVerticalAngle(SourcePipelineSupport->mVerticalAngle);
-	PipelineSupportHologram->SetSupportLength(SourcePipelineSupport->mLength);
+
+	// TODO FIX FOR 1.1
+	//PipelineSupportHologram->SetSupportLength(SourcePipelineSupport->mLength);
+	PipelineSupportHologram->SetPoleHeight(SourcePipelineSupport->mHeight);
+
+	PipelineSupportHologram->UpdatePoleMesh();
+	PipelineSupportHologram->OnRep_VerticalAngle();
+	PipelineSupportHologram->OnRep_PoleVariationIndex();
 
 	return PipelineSupportHologram;
 }
@@ -72,15 +79,18 @@ AFGBuildable* UFSPipelineSupportOperator::CreateCopy(const FSTransformOperator& 
 	//TODO:
 	//Buildable->SetBuildingID(Source->GetBuildingID());
 
-	AFGBuildablePipelineSupport* SourcePipelineSupport = nullptr;
+	AFGBuildablePolePipe* SourcePipelineSupport = nullptr;
 
 	if (Source.Buildable) {
-		SourcePipelineSupport = Cast<AFGBuildablePipelineSupport>(Source.Buildable);
+		SourcePipelineSupport = Cast<AFGBuildablePolePipe>(Source.Buildable);
 	}
 
-	AFGBuildablePipelineSupport* TargetPipelineSupport = Cast<AFGBuildablePipelineSupport>(Buildable);
+	AFGBuildablePolePipe* TargetPipelineSupport = Cast<AFGBuildablePolePipe>(Buildable);
 
-	TargetPipelineSupport->SetSupportLength(SourcePipelineSupport->mLength);
+	// TODO FIX FOR 1.1
+	//TargetPipelineSupport->SetSupportLength(SourcePipelineSupport->mLength);
+
+
 	TargetPipelineSupport->SetVerticalAngle(SourcePipelineSupport->mVerticalAngle);
 
 	if (Source.Buildable) {

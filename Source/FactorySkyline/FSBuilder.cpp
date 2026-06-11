@@ -43,6 +43,8 @@
 
 #include "Buildables/FGBuildableRailroadSwitchControl.h"
 
+#include "FGCentralStorageSubsystem.h"
+
 #include <cmath>
 
 void AFSBuilder::Init()
@@ -675,7 +677,11 @@ FTransform AFSBuilder::GetFixedSourceTransform()
 	}
 	if (this->Design->Anchor.Buildable) {
 		if (Cast<AFGBuildableConveyorBase>(this->Design->Anchor.Buildable) || Cast<AFGBuildablePipeBase>(this->Design->Anchor.Buildable) || Cast<AFGBuildableRailroadTrack>(this->Design->Anchor.Buildable)) {
-			Transform = AnchorConnection->GetComponentTransform();
+			
+			if (AnchorConnection != nullptr) {
+				Transform = AnchorConnection->GetComponentTransform();
+			}
+
 			if (Cast<AFGBuildableConveyorLift>(this->Design->Anchor.Buildable)) return Transform;
 			return FTransform((-Transform.GetRotation().Vector()).ToOrientationQuat(), Transform.GetLocation());
 		}
@@ -686,8 +692,15 @@ FTransform AFSBuilder::GetFixedSourceTransform()
 
 bool AFSBuilder::CheckCost()
 {
+
+	AFGCentralStorageSubsystem* CentralStorageSubsystem = AFGCentralStorageSubsystem::Get(this);
+	TArray<FItemAmount> AllItems;
+	CentralStorageSubsystem->GetAllItemsFromCentralStorage(AllItems);
 	
 	UFSkylineUI* SkylineUIVar = (UFSkylineUI*)this->SkylineUI;
+
+	Inventory->Empty();
+
 	FSInventory Left = *Inventory;
 	
 	TMap<TSubclassOf<UFGItemDescriptor>, int> Minus;
@@ -700,10 +713,12 @@ bool AFSBuilder::CheckCost()
 	AFSController* FSCtrlVar = (AFSController*)this->FSCtrl;
 	if (FSCtrlVar->GetPlayer()) {
 		Left.AddResource(FSCtrlVar->GetPlayer()->GetInventory());
+		Left.AddResource(AllItems);
 		if (Left.Valid(Minus)) {
 			SkylineUIVar->ItemBox->SetVisibility(ESlateVisibility::Collapsed);
 			return true;
 		}
+
 	}
 
 	SkylineUIVar->ItemBox->ClearChildren();
@@ -1536,9 +1551,13 @@ void UFSSyncBuild::StepC()
 								OperatorSwitch->Connection0 = NewConnectionComponent;
 							}
 
-							UFGRailroadTrackConnectionComponent* SwitchControlledConnectionComponent = Switch->mControlledConnection;
+							//TODO FIX FOR 1.1
+							//UFGRailroadTrackConnectionComponent* SwitchControlledConnectionComponent = Switch->mControlledConnection;
 
-							TArray< UFGRailroadTrackConnectionComponent* > SwitchConnectedComponents = SwitchControlledConnectionComponent->mConnectedComponents;
+							//TODO FIX FOR 1.1
+							//TArray< UFGRailroadTrackConnectionComponent* > SwitchConnectedComponents = SwitchControlledConnectionComponent->mConnectedComponents;
+
+							TArray< UFGRailroadTrackConnectionComponent* > SwitchConnectedComponents;
 
 							for (int j = 0; j < SwitchConnectedComponents.Num(); j++) {
 								UFGRailroadTrackConnectionComponent* ConnectedComponent = SwitchConnectedComponents[j];

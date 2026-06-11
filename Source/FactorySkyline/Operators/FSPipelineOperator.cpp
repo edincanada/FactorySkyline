@@ -98,6 +98,8 @@ AFGHologram* UFSPipelineOperator::HologramCopy(FTransform& RelativeTransform)
 	splineHologram->mSplineData = TargetData;
 
 	splineHologram->OnRep_SplineData();
+	splineHologram->UpdateSplineComponent();
+	splineHologram->UpdateClearanceData();
 
 	// TODO WE NEED A ALTERNATIVE TO THIS?
 	//Hologram->OnPendingConstructionHologramCreated_Implementation(Hologram);

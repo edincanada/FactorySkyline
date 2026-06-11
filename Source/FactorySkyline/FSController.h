@@ -34,6 +34,8 @@ struct FSHitResults
 	bool Abstract = false;
 	// the handle for this abstract buildable
 	FInstanceHandle Handle;
+	// the owner Handle for this abstract buildable
+	FInstanceOwnerHandlePtr OwnerHandle;
 	// the runtime data for this abstract buildable
 	//FRuntimeBuildableInstanceData* RuntimeData = new FRuntimeBuildableInstanceData();
 	 FRuntimeBuildableInstanceData RuntimeData;
@@ -263,7 +265,7 @@ public:
 	UPROPERTY(SaveGame)
 	UFSDesignMenu* DesignRoot = nullptr;
 
-	UPROPERTY(SaveGame)
+	//UPROPERTY(SaveGame)
 	FSInventory Inventory;
 
 	UFSkylineUI* SkylineUI = nullptr;

@@ -32,7 +32,7 @@ void UFSTrainPlatformOperator::ApplyConnection(AFGBuildable* Buildable, UFGConne
 
 	if (!TargetComponent->mRailroadTrackConnection && Force) {
 		UFGRailroadTrackConnectionComponent* Connection = nullptr;
-		Connection = UFGRailroadTrackConnectionComponent::FindOverlappingConnections(nullptr, TargetComponent->GetComponentTransform().GetLocation(), 50.0f, true);
+		Connection = UFGRailroadTrackConnectionComponent::FindClosestOverlappingConnection(nullptr, TargetComponent->GetComponentTransform().GetLocation(), 50.0f, {});
 		if (Connection) TargetComponent->SetRailroadConnectionReference(Connection);
 	}
 }

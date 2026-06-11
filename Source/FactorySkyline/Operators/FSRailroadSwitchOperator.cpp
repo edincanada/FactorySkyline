@@ -172,10 +172,23 @@ AFGBuildable* UFSRailroadSwitchOperator::CreateCopy(const FSTransformOperator& T
 	AFGBuildableRailroadSwitchControl* Switch = Cast<AFGBuildableRailroadSwitchControl>(Buildable);
 
 	Connection0->SetSwitchControl(Switch);
-	Switch->SetControlledConnection(Connection0);
-	Connection0->mSwitchPosition = SourceSwitch->mSwitchData.Position;
+
+	//TODO FIX FOR 1.1
+	//Switch->SetControlledConnection(Connection0);
+	Switch->AddControlledConnection(Connection0);
+
+	//TODO FIX FOR 1.1
+	//Connection0->mSwitchPosition = SourceSwitch->mSwitchData.Position;
+	Connection0->SetSwitchPosition(SourceSwitch->mSwitchData.Position);
+
+
 	Switch->mSwitchData.Position = SourceSwitch->mSwitchData.Position;
-	Switch->OnRep_ControlledConnection();
+
+	//TODO FIX FOR 1.1
+	//Switch->OnRep_ControlledConnection();
+
+
+
 	Switch->OnRep_VisualState();
 	Switch->UpdateVisuals();
 

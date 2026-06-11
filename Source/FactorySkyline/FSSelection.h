@@ -86,31 +86,6 @@ FORCEINLINE uint32 GetTypeHash(const FSBuildable& Buildable)
 }
 */
 
-struct FMaterialPair
-{
-	//GENERATED_BODY()
-
-	UPROPERTY()
-	UMaterialInstanceDynamic* SelectMaterial;
-
-	UPROPERTY()
-	UMaterialInstanceDynamic* FocusMaterial;
-
-	UPROPERTY()
-	AHologramHelper* SelectActor = nullptr;
-
-	UHierarchicalInstancedStaticMeshComponent* Selectcomp2;
-
-	UPROPERTY()
-	AHologramHelper* FocusActor = nullptr;
-
-	UHierarchicalInstancedStaticMeshComponent* Focuscomp2;
-
-	FMaterialPair()
-		: SelectMaterial(nullptr), FocusMaterial(nullptr)
-	{}
-};
-
 
 struct FSMeshMaterial
 {
@@ -346,7 +321,7 @@ public:
 	TArray<uint32>* handleIDs;
 	UAbstractInstanceDataObject* Data;
 	AAbstractInstanceManager* Manager;
-	TArray<FInstanceHandle*> InstanceHandles;
+	TArray<FInstanceOwnerHandlePtr> InstanceHandles;
 	UStaticMesh* MeshFromHandle;
 	UStaticMesh* MeshFromInstanceData;
 
@@ -364,7 +339,5 @@ public:
 
 	AFGBuildable* testBuildable = nullptr;
 	bool isValid = false;
-
-	TMap<TSubclassOf< AFGBuildable >, FMaterialPair> AbstractMaterialMap;
 
 };

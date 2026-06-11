@@ -789,7 +789,7 @@ void AFSController::Tick(float dt)
 						CheckFlying();
 					}
 				} else {
-					TickFly(dt);
+					//TickFly(dt);
 				}
 			}
 		}
@@ -875,35 +875,51 @@ void AFSController::TickSelect(float dt)
 	}
 	if (!SelectWaitingResult && !RectangleSelectMode) {
 		FSHitResults FSHit = this->GetSelectHitResult();
+		
+		//FHitResult HitRESULT;
 		FHitResult Hit = FSHit.Hit;
+
+		
+		//if (!FSHit.Hit.bBlockingHit || !FSHit.Hit.Component.IsValid())
+		//{
+			// Handle invalid hit safely (e.g., skip this logic or log a warning)
+			//Hit = FSHit.Hit;
+		//}
+
 		AFGBuildable* Building = this->AcquireBuildable(Hit);
+
+		if (Building == nullptr && FSHit.OwnerHandle == nullptr) {
+			return;
+		}
 
 		FSBuildable Buildable;
 		Buildable.Abstract = FSHit.Abstract;
 		Buildable.Handle = FSHit.Handle;
+		Buildable.OwnerHandle = FSHit.OwnerHandle;
 		Buildable.RuntimeData = FSHit.RuntimeData;
 		Buildable.BuildableClass = FSHit.BuildableClass;
-		Buildable.Transform = FSHit.InstanceTransform;
+		//Buildable.Transform = FSHit.InstanceTransform;
+		Buildable.Transform = FSHit.RuntimeData.Transform;
 		Buildable.Buildable = Building;
 
 		FSBuildableTest Buildable1(this->AcquireBuildable(Hit));
+		
 
 		//fgcheck(Buildable.RuntimeData);
 		//fgcheck(Buildable.BuildableClass);
 
+		
 		if (Buildable != CurrentFocusBuilding) {
 			if (CurrentFocusBuilding != BuildableEmpty) this->ClearFocusBuilding();
 
  			if (Buildable != BuildableEmpty) {
 
-				/* This won't always return a valid result so disable this debug for now*/
-				/*
-				std::string  str = TCHAR_TO_UTF8(*Building->GetName());
-				str.append("\n");
-				str.append("FOUND HIT\n");
-				std::wstring temp = std::wstring(str.begin(), str.end());
-				LPCWSTR wideString = temp.c_str();
-				*/
+				// This won't always return a valid result so disable this debug for now
+				//std::string  str = TCHAR_TO_UTF8(*Building->GetName());
+				//str.append("\n");
+				//str.append("FOUND HIT\n");
+				//std::wstring temp = std::wstring(str.begin(), str.end());
+				//LPCWSTR wideString = temp.c_str();
 				//OutputDebugStringW(wideString);
 
 				if (this->FSInput->IsKeyDown("LeftMouseKey")) {
@@ -922,6 +938,7 @@ void AFSController::TickSelect(float dt)
 				}
 			}
 		}
+		
 	}
 }
 
@@ -934,6 +951,7 @@ void AFSController::TickSetItem(float dt)
 	FSBuildable Buildable;
 	Buildable.Abstract = FSHit.Abstract;
 	Buildable.Handle = FSHit.Handle;
+	Buildable.OwnerHandle = FSHit.OwnerHandle;
 	Buildable.RuntimeData = FSHit.RuntimeData;
 	Buildable.BuildableClass = FSHit.BuildableClass;
 	Buildable.Buildable = Building;
@@ -1255,6 +1273,7 @@ void AFSController::onLeftMouseUp()
 				FSBuildable Buildable;
 				Buildable.Abstract = Hit.Abstract;
 				Buildable.Handle = Hit.Handle;
+				Buildable.OwnerHandle = Hit.OwnerHandle;
 				Buildable.RuntimeData = Hit.RuntimeData;
 				Buildable.BuildableClass = Hit.BuildableClass;
 				Buildable.Transform = Hit.InstanceTransform;
@@ -1592,8 +1611,8 @@ void AFSController::CheckFlying()
   	if (!MovementComponent) return;
 	if (Etc->GetBool("IsFlying")) {
 		MovementComponent->SetMovementMode(EMovementMode::MOVE_Flying);
-		MovementComponent->MaxFlySpeed = 20000.0f;
-		MovementComponent->MaxAcceleration = 0.0f;
+		//MovementComponent->MaxFlySpeed = 20000.0f;
+		//MovementComponent->MaxAcceleration = 0.0f;
 	}
 	else {
 
@@ -1635,7 +1654,9 @@ bool AFSController::CheckAnchor(bool Warn)
 			if (this->Builder->CheckAnchor(this->Design)) {
 
 				if (this->Design->Anchor.Buildable) {
-					this->Design->SetItemFeedback->SetText(FText::FromString(this->Design->Anchor.Buildable->GetName()));
+					if (this->Design->Anchor.Buildable->IsValidLowLevel()) {
+						this->Design->SetItemFeedback->SetText(FText::FromString(this->Design->Anchor.Buildable->GetName()));
+					}
 				}
 				this->Design->SetItemFeedback->SetColorAndOpacity(FSlateColor(FLinearColor(1.0f, 1.0f, 1.0f, 1.0f)));
 				this->Design->SetItemFeedback->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
@@ -1776,7 +1797,8 @@ FSHitResults AFSController::GetSelectHitResult()
 
 			//return FSHit;
 
-			UHierarchicalInstancedStaticMeshComponent* OriginalHISMC = Handle.GetInstanceComponent();
+			//UHierarchicalInstancedStaticMeshComponent* OriginalHISMC = Handle.GetInstanceComponent();
+			UHierarchicalInstancedStaticMeshComponent* OriginalHISMC = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Handle.GetInstanceComponent());
 
 			if (CompCopy == nullptr) {
 				/*
@@ -1793,7 +1815,7 @@ FSHitResults AFSController::GetSelectHitResult()
 				CompCopy->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 				*/
 
-
+				/*
 				CompCopy = NewObject<UHierarchicalInstancedStaticMeshComponent>(WorldHologramHelper);
 
 
@@ -1815,6 +1837,7 @@ FSHitResults AFSController::GetSelectHitResult()
 				CompCopy->SetVisibility(true);
 				//comp2->NumCustomDataFloats = InstanceHandles[i]->GetInstanceComponent()->NumCustomDataFloats;
 				CompCopy->RegisterComponent();
+				*/
 
 
 
@@ -1824,14 +1847,17 @@ FSHitResults AFSController::GetSelectHitResult()
 			//Handle.GetInstanceComponent()->GetInstanceTransform(Handle.GetHandleID(), InstanceTransform);
 			//CompCopy->AddInstance(InstanceTransform);
 
+			/*
 			FTransform InstanceTransform2;
 			Handle.GetInstanceComponent()->GetInstanceTransform(Handle.GetHandleID(), InstanceTransform2, true);
+			*/
 
 
 			// worth noting runtimeData transformation data is off in world position from world position returned by the components
 			// meaning this isnt accurate data to work with for some reason, investigate more to root cause to this as it should be the same?
 			//InstanceTransform = runtimeData->Transform;
 
+			/*
 			CompCopy->AddInstance(InstanceTransform2, true);
 
 			FVector ComponentWorldLocation = CompCopy->GetComponentLocation();
@@ -1841,6 +1867,7 @@ FSHitResults AFSController::GetSelectHitResult()
 			FSHit.InstanceTransform = FSHit.RuntimeData.Transform;
 
 			CompCopy->ClearInstances();
+			*/
 
 			// doesnt work
 			//bool didSpawn = false;
@@ -1863,9 +1890,143 @@ FSHitResults AFSController::GetSelectHitResult()
 			//}
 			*/
 
+			// 1.1 Test code for hiding instances as the previous method
+			/*
+			if (OriginalHISMC) {
+
+				FVector Scale{};
+				FTransform T;
+				OriginalHISMC->GetInstanceTransform(Handle.GetHandleID(), T, false);
+				Scale = T.GetScale3D();
+				T.SetScale3D(FVector(0.001));
+				T.AddToTranslation(-FVector(0, 0, AIM_BigOffset));
+
+				OriginalHISMC->UpdateInstanceTransform(Handle.GetHandleID(), T, false, true, false);
+
+			}
+			*/
+
+			//Manager->BuildUniqueName(HitCollision);
+
+			//return FSHitResults();
+			
+				if (ULightweightCollisionComponent* HitCollision = Cast<ULightweightCollisionComponent>(modifiedHitResult.GetComponent()))
+				{
+					 FName VisualIDBucket = HitCollision->ComponentTags.IsValidIndex(0) ? HitCollision->ComponentTags[0] : FName();
+					 FName CollisionIDBucket = HitCollision->ComponentTags.IsValidIndex(1) ? HitCollision->ComponentTags[1] : FName();
+					 //FName HandleHash = AAbstractInstanceManager::BuildUniqueName(HitCollision);
+
+					 FName HandleHash;
+
+					 if (HitCollision->OverrideMaterials.Num() > 0)
+					 {
+						 uint32 hash = 0;
+						 for (const UMaterialInterface* Material : HitCollision->OverrideMaterials)
+						 {
+							 if (Material)
+							 {
+								 hash = HashCombine(hash, GetTypeHash(Material->GetFName()));
+							 }
+						 }
+
+						 HandleHash = FName(HitCollision->GetStaticMesh()->GetFName(), hash);
+					 }
+					 else {
+						 HandleHash = FName(HitCollision->GetStaticMesh()->GetFName());
+					 }
+
+					 //TMap<FName, FInstanceComponentData> InstanceMap = Manager->InstanceMap;
+
+					 int32 VisualCompIndex = FCString::Atoi(*VisualIDBucket.ToString());
+
+					 //return FSHitResults();
+
+					 //FInstanceComponentData Data = Manager->InstanceMap[HandleHash];
+
+					 int32 CollisionPerVisual;
+
+					 if (FInstanceComponentData* ComponentData = Manager->InstanceMap.Find(HandleHash))
+					 {
+						 CollisionPerVisual = ComponentData->NumCollisionComponentsPerVisual;
+
+						 //return FSHitResults();
+
+						 // continue safely
+
+						 int32 CollisionBucketIndex = (FCString::Atoi(*CollisionIDBucket.ToString()));
+						 int32 BucketIndex = (VisualCompIndex * CollisionPerVisual) + CollisionBucketIndex;
+
+						 //return FSHitResults();
+
+						 EditorCheck(Manager->InstanceMap[HandleHash].InstancedCollisionComponents[BucketIndex] == HitCollision)
+
+							 int32 HandleId = (CollisionBucketIndex * 500) + modifiedHitResult.Item;
+
+						 TArray<FInstanceOwnerHandlePtr>& InstanceHandleLookup = Manager->InstanceMap[HandleHash].InstanceHandles[VisualCompIndex];
+
+						 if (!InstanceHandleLookup.IsValidIndex(HandleId))
+						 {
+							 UE_LOG(LogTemp, Warning, TEXT("handle id %d is out of bounds %d outer: %s "), HandleId, InstanceHandleLookup.Num(), *HandleHash.ToString());
+							 //return false;
+
+							 FSHit.OwnerHandle = nullptr;
+
+						 }
+						 else {
+
+							 FInstanceOwnerHandlePtr& Handle = InstanceHandleLookup[HandleId];
+
+							 FSHit.OwnerHandle = Handle;
+						 }
+
+					 }
+
+					 //int32 CollisionPerVisual = Manager->InstanceMap[HandleHash].NumCollisionComponentsPerVisual;
+
+					 //return FSHitResults();
+
+					 //int32 CollisionBucketIndex = (FCString::Atoi(*CollisionIDBucket.ToString()));
+					 //int32 BucketIndex = (VisualCompIndex * CollisionPerVisual) + CollisionBucketIndex;
+
+					 //return FSHitResults();
+
+					//EditorCheck(Manager->InstanceMap[HandleHash].InstancedCollisionComponents[BucketIndex] == HitCollision)
+
+					 //int32 HandleId = (CollisionBucketIndex * 500) + modifiedHitResult.Item;
+
+					 //TArray<FInstanceOwnerHandlePtr>& InstanceHandleLookup = Manager->InstanceMap[HandleHash].InstanceHandles[VisualCompIndex];
+
+					//if (!InstanceHandleLookup.IsValidIndex(HandleId))
+					//{
+						//UE_LOG(LogTemp, Warning, TEXT("handle id %d is out of bounds %d outer: %s "), HandleId, InstanceHandleLookup.Num(), *HandleHash.ToString());
+						//return false;
+					//}
+
+					//FInstanceOwnerHandlePtr& Handle = InstanceHandleLookup[HandleId];
+
+					//FSHit.OwnerHandle = Handle;
+
+					//Handle.Get()->HideInstance(true);
+
+				}
+				
+				
+
+			//FInstanceOwnershipHandle HandleOwner;
+
+			//HandleOwner = FInstanceOwnershipHandle(Handle);
+
+			//HandleOwner.HideInstance(true);
+
+			//Handle.HideInstance(true);
+
+			//return FSHitResults();
+
 			return FSHit;
 
-			Handle.HideInstance(true);
+
+			// TODO FIX FOR 1.1
+			//Handle.HideInstance(true);
 
 
 		}
@@ -1984,7 +2145,8 @@ FSHitResults AFSController::GetCopyHitResult()
 
 			return FSHit;
 
-			UHierarchicalInstancedStaticMeshComponent* OriginalHISMC = Handle.GetInstanceComponent();
+			//UHierarchicalInstancedStaticMeshComponent* OriginalHISMC = Handle.GetInstanceComponent();
+			UHierarchicalInstancedStaticMeshComponent* OriginalHISMC = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Handle.GetInstanceComponent());
 
 			if (CompCopy == nullptr) {
 				/*
@@ -2045,8 +2207,8 @@ FSHitResults AFSController::GetCopyHitResult()
 			//bool didSpawn = false;
 			//tempData = lightweightSubsystem->FindOrSpawnBuildableForRuntimeData(runtimeData, Handle.GetHandleID(), didSpawn);
 
-
-			Handle.HideInstance(true);
+			// TODO FIX FOR 1.1
+			//Handle.HideInstance(true);
 
 
 		}

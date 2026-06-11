@@ -87,13 +87,16 @@
 #include "Buildables/FGBuildableTrainPlatformCargo.h"
 #include "Buildables/FGBuildableWalkway.h"
 #include "Buildables/FGBuildableWall.h"
-#include "Buildables/FGConveyorPoleStackable.h"
+//#include "Buildables/FGConveyorPoleStackable.h"
+#include "Buildables/FGBuildablePoleConveyor.h"
 
 #include "Hologram/FGHologram.h"
 #include "Hologram/FGConveyorBeltHologram.h"
 #include "Hologram/FGPipelineHologram.h"
 #include "Resources/FGBuildingDescriptor.h"
-#include "FGBuildablePipelineSupport.h"
+//#include "FGBuildablePipelineSupport.h"
+#include "FGBuildablePolePipe.h"
+
 #include "FGBuildableSubsystem.h"
 #include "FGFactoryConnectionComponent.h"
 #include "FGFactoryLegsComponent.h"
@@ -177,11 +180,68 @@ AFGHologram* UFSBuildableOperator::HologramCopy(FTransform& RelativeTransform)
 
 AFGBuildable* UFSBuildableOperator::CreateCopy(const FSTransformOperator& TransformOperator)
 {
+	AFSkyline* FSkyline = AFSkyline::Get(this);
+
+	FTransform Transform;
+
+	if (Source.BuildableClass) {
+		if (Source.BuildableClass->IsChildOf<AFGBuildableBeam>()) {
+			Transform = TransformOperator.Transform(Source.Transform);
+			sourceClass = Source.BuildableClass;
+			Buildable = BuildableSubsystem->BeginSpawnBuildable(sourceClass, Transform);
+
+			FLightweightBuildableInstanceRef buildableRef;
+			AFGLightweightBuildableSubsystem::ResolveLightweightInstance(Source.Handle, buildableRef);
+
+			//if (TemporaryBuildable == nullptr) {
+				//TemporaryBuildable = buildableRef.SpawnTemporaryBuildable();
+
+			AFGBuildable* TemporaryBuildable = UFGLightweightBuildableBlueprintLibrary::SpawnTemporaryFromLightweight(buildableRef);
+
+			AFGBuildableBeam* SourceBuildableBeam = nullptr;
+			SourceBuildableBeam = Cast<AFGBuildableBeam>(TemporaryBuildable);
+
+			AFGBuildableBeam* BuildableBeam = Cast<AFGBuildableBeam>(Buildable);
+			//BuildableBeam->mSize = SourceBuildableBeam->mSize;
+			//BuildableBeam->mDefaultLength = SourceBuildableBeam->mDefaultLength;
+			//BuildableBeam->mMaxLength = SourceBuildableBeam->mMaxLength;
+			//BuildableBeam->mLength = SourceBuildableBeam->mLength;
+			BuildableBeam->SetLength(SourceBuildableBeam->GetLength());
+
+			TSubclassOf<UFGRecipe> Recipe;
+
+			//if (Source.Buildable) {
+			Recipe = SplineHologramFactory->GetRecipeFromClass(SourceBuildableBeam->GetClass());
+			//}
+
+			//if (Source.Buildable) {
+				//if (!Recipe) Recipe = SourceBuildableBeam->GetBuiltWithRecipe();
+			//}
+			if (!Recipe) return nullptr;
+
+			Buildable->SetBuiltWithRecipe(Recipe);
+
+			//if (Source.Buildable) {
+			Buildable->SetCustomizationData_Implementation(SourceBuildableBeam->GetCustomizationData_Implementation());
+			//}
+			Buildable->FinishSpawning(Transform);
+
+			//FSkyline->Select->Select(Buildable);
+			//FSkyline->Select->Select(Buildable);
+			FSBuildable Buildableptr;
+			Buildableptr.Buildable = Buildable;
+			FSkyline->Select->EnableHightLight(Buildableptr, FSkyline->Select->SelectMaterial);
+			FSkyline->Select->DisableHightLight(Buildableptr);
+
+			return Buildable;
+
+
+		}
+	}
+
 	//std::this_thread::sleep_for(std::chrono::nanoseconds(10000000));
 	
 	//FTransform Transform = TransformOperator.Transform(Source->GetTransform());
-
-	FTransform Transform;
 
 	if (Source.Buildable) {
 		Transform = TransformOperator.Transform(Source.Buildable->GetTransform());
@@ -736,14 +796,14 @@ UFSBuildableOperator* UFSOperatorFactory::CreateEmptyOperator(UClass* Buildable)
 	}
 	if(Buildable->IsChildOf<AFGBuildablePoleBase>()) {
 		if (Buildable->IsChildOf<AFGBuildablePole>()) {
-			if (Buildable->IsChildOf<AFGConveyorPoleStackable>()) {
+			if (Buildable->IsChildOf<AFGBuildablePoleConveyor>()) {
 				if (Check(Buildable, "Build_ConveyorPoleStackable_C")) return NewObject<UFSConveyorPoleStackableOperator>(this);
 				NewObject<UFSConveyorPoleStackableOperator>(this)->SetUnknown();
 			}
 			if (Check(Buildable, "Build_ConveyorPole_C")) return NewObject<UFSConveyorPoleOperator>(this);
 			return NewObject<UFSConveyorPoleOperator>(this)->SetUnknown();
 		}
-		if (Buildable->IsChildOf<AFGBuildablePipelineSupport>()) {
+		if (Buildable->IsChildOf<AFGBuildablePolePipe>()) {
 			if (Check(Buildable, "Build_PipelineSupport_C")) return NewObject<UFSPipelineSupportOperator>(this);
 			if (Check(Buildable, "Build_PipeSupportStackable_C")) return NewObject<UFSPipelineSupportStkOperator>(this);
 			if (Check(Buildable, "Build_PipeHyperSupport_C")) return NewObject<UFSPipelineSupportOperator>(this);
@@ -1035,6 +1095,20 @@ AFGConveyorLiftHologram* UFSSplineHologramFactory::CreateLiftHologram(AFGBuildab
 
 	ConveyorLiftHologram->mTopTransform = ConveyorLift->mTopTransform;
 
+	//ConveyorLiftHologram->CheckValidFloor();
+	//ConveyorLiftHologram->ConfigureActor(Cast< AFGBuildable>(ConveyorLiftHologram));
+	//ConveyorLiftHologram->ConfigureComponents(Cast< AFGBuildable>(ConveyorLiftHologram));
+	//ConveyorLiftHologram->UpdateConnectionDirections();
+
+	FHitResult Hit2;
+	FRotator rotator;
+
+	//ConveyorLiftHologram->UpdateTopTransform(Hit2, rotator);
+	//ConveyorLiftHologram->OnRep_TopTransform();
+	ConveyorLiftHologram->OnRep_TopTransform();
+	//ConveyorLiftHologram->UpdateClearance();
+	//ConveyorLiftHologram->OnRep_ArrowDirection();
+
 	//TODO DO WE NEED A ALTERNATIVE HERE?
 	//ConveyorLiftHologram->OnPendingConstructionHologramCreated_Implementation(ConveyorLiftHologram);
 
@@ -1048,9 +1122,13 @@ AFGPipelineHologram* UFSSplineHologramFactory::CreatePipelineHologram(AFGBuildab
 
 	FTransform SupportTransform(FRotator(0.0f, 0.0f, 0.0f), FVector(-11766.815430f, 248540.609375f, -10324.533142f));
 	if (!PipelineSupport) {
-		PipelineSupport = Cast<AFGBuildablePipelineSupport>(BuildableSubsystem->BeginSpawnBuildable(AFGBuildable::GetBuildableClassFromRecipe(PipelineSupportRecipe), SupportTransform));
+		PipelineSupport = Cast<AFGBuildablePolePipe>(BuildableSubsystem->BeginSpawnBuildable(AFGBuildable::GetBuildableClassFromRecipe(PipelineSupportRecipe), SupportTransform));
 		PipelineSupport->SetBuiltWithRecipe(PipelineSupportRecipe);
-		PipelineSupport->SetSupportLength(100.0f);
+
+		// TODO FIX FOR 1.1
+		//PipelineSupport->SetSupportLength(100.0f);
+		PipelineHyperSupport->SetPoleHeight(100.0f);
+
 		PipelineSupport->FinishSpawning(SupportTransform);
 		PipelineSupport->GetRootComponent()->SetMobility(EComponentMobility::Type::Movable);
 		PipelineSupport->SetActorHiddenInGame(true);
@@ -1113,9 +1191,13 @@ AFGPipelineHologram* UFSSplineHologramFactory::CreatePipelineHologram(AFGBuildab
 
 	FTransform SupportTransform(FRotator(0.0f, 0.0f, 0.0f), FVector(-1766.815430f, 248540.609375f, -10324.533142f));
 	if (!PipelineHyperSupport) {
-		PipelineHyperSupport = Cast<AFGBuildablePipelineSupport>(BuildableSubsystem->BeginSpawnBuildable(AFGBuildable::GetBuildableClassFromRecipe(PipelineHyperSupportRecipe), SupportTransform));
+		PipelineHyperSupport = Cast<AFGBuildablePolePipe>(BuildableSubsystem->BeginSpawnBuildable(AFGBuildable::GetBuildableClassFromRecipe(PipelineHyperSupportRecipe), SupportTransform));
 		PipelineHyperSupport->SetBuiltWithRecipe(PipelineHyperSupportRecipe);
-		PipelineHyperSupport->SetSupportLength(100.0f);
+
+		// TODO FIX FOR 1.1
+		//PipelineHyperSupport->SetSupportLength(100.0f);
+		PipelineHyperSupport->SetPoleHeight(100.0f);
+
 		PipelineHyperSupport->FinishSpawning(SupportTransform);
 		PipelineHyperSupport->GetRootComponent()->SetMobility(EComponentMobility::Type::Movable);
 		PipelineHyperSupport->SetActorHiddenInGame(true);

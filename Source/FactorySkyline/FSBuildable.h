@@ -35,6 +35,8 @@ struct FSBuildable
 	bool Abstract = false;
 	// the handle for this abstract buildable
 	FInstanceHandle Handle;
+	// the owner Handle for this abstract buildable
+	FInstanceOwnerHandlePtr OwnerHandle;
 	// the runtime data for this abstract buildable
 	//FRuntimeBuildableInstanceData* RuntimeData = new FRuntimeBuildableInstanceData();
 	FRuntimeBuildableInstanceData RuntimeData;
@@ -71,8 +73,11 @@ struct FSBuildable
 			}
 			else {
 
-				UHierarchicalInstancedStaticMeshComponent* hismc = Handle.GetInstanceComponent();
-				UHierarchicalInstancedStaticMeshComponent* hismcOther = Other.Handle.GetInstanceComponent();
+				//UHierarchicalInstancedStaticMeshComponent* hismc = Handle.GetInstanceComponent();
+				//UHierarchicalInstancedStaticMeshComponent* hismcOther = Other.Handle.GetInstanceComponent();
+
+				UHierarchicalInstancedStaticMeshComponent* hismc = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Handle.GetInstanceComponent());
+				UHierarchicalInstancedStaticMeshComponent* hismcOther = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Other.Handle.GetInstanceComponent());
 
 				// Check if they share the same mesh component.
 				if (hismc == hismcOther) {
@@ -111,8 +116,11 @@ struct FSBuildable
 			}
 			else {
 
-				UHierarchicalInstancedStaticMeshComponent* hismc = Handle.GetInstanceComponent();
-				UHierarchicalInstancedStaticMeshComponent* hismcOther = Other.Handle.GetInstanceComponent();
+				//UHierarchicalInstancedStaticMeshComponent* hismc = Handle.GetInstanceComponent();
+				//UHierarchicalInstancedStaticMeshComponent* hismcOther = Other.Handle.GetInstanceComponent();
+
+				UHierarchicalInstancedStaticMeshComponent* hismc = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Handle.GetInstanceComponent());
+				UHierarchicalInstancedStaticMeshComponent* hismcOther = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Other.Handle.GetInstanceComponent());
 
 				// Check if they share the same mesh component.
 				if (hismc == hismcOther) {
@@ -226,8 +234,11 @@ struct FSBuildableTest
 			}
 			else {
 
-				UHierarchicalInstancedStaticMeshComponent* hismc = Handle.GetInstanceComponent();
-				UHierarchicalInstancedStaticMeshComponent* hismcOther = Other.Handle.GetInstanceComponent();
+				//UHierarchicalInstancedStaticMeshComponent* hismc = Handle.GetInstanceComponent();
+				//UHierarchicalInstancedStaticMeshComponent* hismcOther = Other.Handle.GetInstanceComponent();
+
+				UHierarchicalInstancedStaticMeshComponent* hismc = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Handle.GetInstanceComponent());
+				UHierarchicalInstancedStaticMeshComponent* hismcOther = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Other.Handle.GetInstanceComponent());
 
 				// Check if they share the same mesh component.
 				if (hismc == hismcOther) {
@@ -260,8 +271,11 @@ struct FSBuildableTest
 			}
 			else {
 
-				UHierarchicalInstancedStaticMeshComponent* hismc = Handle.GetInstanceComponent();
-				UHierarchicalInstancedStaticMeshComponent* hismcOther = Other.Handle.GetInstanceComponent();
+				//UHierarchicalInstancedStaticMeshComponent* hismc = Handle.GetInstanceComponent();
+				//UHierarchicalInstancedStaticMeshComponent* hismcOther = Other.Handle.GetInstanceComponent();
+
+				UHierarchicalInstancedStaticMeshComponent* hismc = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Handle.GetInstanceComponent());
+				UHierarchicalInstancedStaticMeshComponent* hismcOther = const_cast<UHierarchicalInstancedStaticMeshComponent*>(Other.Handle.GetInstanceComponent());
 
 				// Check if they share the same mesh component.
 				if (hismc == hismcOther) {

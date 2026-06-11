@@ -103,7 +103,11 @@ AFGBuildable* UFSBuildableLightsControlPanelOperator::CreateCopy(const FSTransfo
 	BuildableSign->mGlossiness = SourceBuildableSign->mGlossiness;
 	BuildableSign->mDataVersion = SourceBuildableSign->mDataVersion;
 	*/
-	BuildableLightsControlPanel->PasteSettings_Implementation(SourceBuildableLightsControlPanel->CopySettings_Implementation());
+
+	
+	BuildableLightsControlPanel->PasteSettings_Implementation(SourceBuildableLightsControlPanel->CopySettings_Implementation(), nullptr);
+
+
 	BuildableLightsControlPanel->SetLightDataOnControlledLights(SourceBuildableLightsControlPanel->GetLightControlData());
 	BuildableLightsControlPanel->SetLightEnabled(SourceBuildableLightsControlPanel->IsLightEnabled());
 	BuildableLightsControlPanel->mLightControlData = SourceBuildableLightsControlPanel->mLightControlData;

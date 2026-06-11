@@ -6,6 +6,8 @@
 #include "FGRecipe.h"
 #include "Resources/FGItemDescriptor.h"
 
+#include "FGCentralStorageSubsystem.h"
+
 
 void FSInventory::Init(UFSSplineHologramFactory* SplineHologramFactoryParam)
 {
@@ -167,6 +169,9 @@ int ConsumeInventory(UFGInventoryComponent* PlayerInventory, TSubclassOf<UFGItem
 
 bool FSInventory::Consume(UFGInventoryComponent* PlayerInventory, const FSInventory* Cost)
 {
+	AFGCentralStorageSubsystem* CentralStorageSubsystem = AFGCentralStorageSubsystem::Get(PlayerInventory);
+
+
 	FScopeLock ScopeLock(&Mutex);
 	bool Res = true;
 	for (const TPair<TSubclassOf<UFGItemDescriptor>, int>& Pair : Cost->Storage) if (Pair.Value > 0) {
@@ -176,6 +181,13 @@ bool FSInventory::Consume(UFGInventoryComponent* PlayerInventory, const FSInvent
 			if (value) Storage.Remove(Pair.Key);
 			if (count < Pair.Value) {
 				int left = ConsumeInventory(PlayerInventory, Pair.Key, Pair.Value - count);
+
+				if (left > 0) {
+
+					left = CentralStorageSubsystem->TryRemoveItemsFromCentralStorage(Pair.Key, left);
+
+				}
+
 				if (left) Storage.Add(Pair.Key, -left);
 				Res &= (left == 0);
 			}

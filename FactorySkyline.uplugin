@@ -1,8 +1,8 @@
 {
 	"FileVersion": 3,
 	"Version": 0,
-	"VersionName": "0.3.7",
-	"SemVersion": "0.3.7",
+	"VersionName": "0.4.0",
+	"SemVersion": "0.4.0",
 	"FriendlyName": "FactorySkyline",
 	"Description": "Reboot of factory skyline",
 	"Category": "Modding",
@@ -25,10 +25,9 @@
 	"Plugins": [
 		{
 			"Name": "SML",
-			"SemVersion": "^3.8.0",
+			"SemVersion": "^3.11.0",
 			"Enabled": true
 		}
 	],
-	"SemVersion": "0.3.7",
-	"GameVersion": ">=365306"
+	"GameVersion": ">=410840"
 }

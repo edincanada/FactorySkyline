@@ -88,8 +88,10 @@ AFGBuildable* UFSBuildableFloodlightOperator::CreateCopy(const FSTransformOperat
 
 	AFGBuildableFloodlight* BuildableLightsControlPanel = Cast<AFGBuildableFloodlight>(Buildable);
 
+	
+	BuildableLightsControlPanel->PasteSettings_Implementation(SourceBuildableLightsControlPanel->CopySettings_Implementation(), nullptr);
 
-	BuildableLightsControlPanel->PasteSettings_Implementation(SourceBuildableLightsControlPanel->CopySettings_Implementation());
+
 	BuildableLightsControlPanel->SetLightControlData(SourceBuildableLightsControlPanel->GetLightControlData());
 	BuildableLightsControlPanel->SetLightEnabled(SourceBuildableLightsControlPanel->IsLightEnabled());
 	BuildableLightsControlPanel->mLightControlData = SourceBuildableLightsControlPanel->mLightControlData;
