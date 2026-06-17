@@ -33,96 +33,95 @@ public:
 	UFSkylineUI(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* RootPanel;
+	TObjectPtr<class UCanvasPanel> RootPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* RepeatBox;
+	TObjectPtr<class UCanvasPanel> RepeatBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* OperatingHelper;
+	TObjectPtr<class UHorizontalBox> OperatingHelper;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* MessageBox;
+	TObjectPtr<class UHorizontalBox> MessageBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Message;
+	TObjectPtr<class UTextBlock> Message;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* ItemBox;
+	TObjectPtr<class UHorizontalBox> ItemBox;
 
 	UPROPERTY()
-	UFSGettingStartMenu* GettingStart;
+	TObjectPtr<UFSGettingStartMenu> GettingStart;
 
 	UPROPERTY()
-	UFSOperatingWidget* OperatingWidget;
+	TObjectPtr<UFSOperatingWidget> OperatingWidget;
 
 	UPROPERTY()
-	TArray<UFSMenuEntryBase*> EntryRecycle;
+	TArray<TObjectPtr<UFSMenuEntryBase>> EntryRecycle;
 
 	UPROPERTY()
-	TArray<UFSMenuWidget*> WidgetRecycle;
+	TArray<TObjectPtr<UFSMenuWidget>> WidgetRecycle;
 
 	UPROPERTY()
-	TArray<UFSResourceIcon*> ResourceIcon;
+	TArray<TObjectPtr<UFSResourceIcon>> ResourceIcon;
 
 	UPROPERTY()
-	UFSLogoWidget* Logo;
+	TObjectPtr<UFSLogoWidget> Logo;
 	UCanvasPanelSlot* LogoSlot;
 
 	UPROPERTY()
-	UFSCompletionWidget* CompletionWidget;
+	TObjectPtr<UFSCompletionWidget> CompletionWidget;
 
 	UPROPERTY()
-	UFSRepeatWidget* RepeatWidget;
+	TObjectPtr<UFSRepeatWidget> RepeatWidget;
 
 	UPROPERTY()
-	UFSSelectRect* SelectRect;
+	TObjectPtr<UFSSelectRect> SelectRect;
 
 	UPROPERTY()
-	UFSKeySettingsWidget* KeySettingsWidget;
+	TObjectPtr<UFSKeySettingsWidget> KeySettingsWidget;
 
 	UPROPERTY()
-	UFSInventoryWidget* InventoryWidget;
-
-
-	UPROPERTY()
-	UFSKeyMappingWidget* PressCtrlMapping;
+	TObjectPtr<UFSInventoryWidget> InventoryWidget;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* HoldCtrlMapping;
+	TObjectPtr<UFSKeyMappingWidget> PressCtrlMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* SelectScrollMapping;
+	TObjectPtr<UFSKeyMappingWidget> HoldCtrlMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* SelectMapping;
+	TObjectPtr<UFSKeyMappingWidget> SelectScrollMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* SelectAnchorMapping;
+	TObjectPtr<UFSKeyMappingWidget> SelectMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* ExitMapping;
+	TObjectPtr<UFSKeyMappingWidget> SelectAnchorMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* CopyScrollMapping;
+	TObjectPtr<UFSKeyMappingWidget> ExitMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* CopyMapping;
+	TObjectPtr<UFSKeyMappingWidget> CopyScrollMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* SetRepeatMapping;
+	TObjectPtr<UFSKeyMappingWidget> CopyMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* SetAnchorMapping;
+	TObjectPtr<UFSKeyMappingWidget> SetRepeatMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* SetCircleCenterMapping;
+	TObjectPtr<UFSKeyMappingWidget> SetAnchorMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* GotoBuildMapping;
+	TObjectPtr<UFSKeyMappingWidget> SetCircleCenterMapping;
 
 	UPROPERTY()
-	UFSKeyMappingWidget* BackToSelectMapping;
+	TObjectPtr<UFSKeyMappingWidget> GotoBuildMapping;
+
+	UPROPERTY()
+	TObjectPtr<UFSKeyMappingWidget> BackToSelectMapping;
 
 
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);

@@ -54,34 +54,34 @@ public:
 	bool IsFullLoaded = false;
 
 	UPROPERTY()
-	AFSBuilder* Builder = nullptr;
+	TObjectPtr<AFSBuilder> Builder = nullptr;
 
 	UPROPERTY()
-	UFSSelection* Select = nullptr;
+	TObjectPtr<UFSSelection> Select = nullptr;
 
 	UPROPERTY()
-	UFSkylineUI* SkylineUI = nullptr;
+	TObjectPtr<UFSkylineUI> SkylineUI = nullptr;
 
 	UPROPERTY(SaveGame)
-	AFSController* FSCtrl = nullptr;
+	TObjectPtr<AFSController> FSCtrl = nullptr;
 
 	UPROPERTY()
-	UFSOperatorFactory* OperatorFactory = nullptr;
+	TObjectPtr<UFSOperatorFactory> OperatorFactory = nullptr;
 
 	UPROPERTY()
-	UFSSplineHologramFactory* SplineHologramFactory = nullptr;
+	TObjectPtr<UFSSplineHologramFactory> SplineHologramFactory = nullptr;
 
 	UPROPERTY()
-	UFSBuildableService* BuildableService = nullptr;
+	TObjectPtr<UFSBuildableService> BuildableService = nullptr;
 
 	UPROPERTY()
-	UFSConnectSelectService* ConnectSelectService = nullptr;
+	TObjectPtr<UFSConnectSelectService> ConnectSelectService = nullptr;
 
 	UPROPERTY()
-	UFSRectSelectService* RectSelectService = nullptr;
+	TObjectPtr<UFSRectSelectService> RectSelectService = nullptr;
 
 	UPROPERTY()
-	UFSAdaptiveUtil* AdaptiveUtil = nullptr;
+	TObjectPtr<UFSAdaptiveUtil> AdaptiveUtil = nullptr;
 
 	void Connect(AFGBuildable* selfCA);
 

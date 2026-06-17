@@ -20,13 +20,13 @@ public:
 	UFSCompletionWidget(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* UndoButton;
+	TObjectPtr<class UButton> UndoButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* OkButton;
+	TObjectPtr<class UButton> OkButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* SaveButton;
+	TObjectPtr<class UButton> SaveButton;
 
 	UFUNCTION()
 	void onUndo();
@@ -48,7 +48,7 @@ public:
 	TWeakObjectPtr<UFSDesignMenu> Source;
 
 	UPROPERTY()
-	UFSDesignMenu* Target;
+	TObjectPtr<UFSDesignMenu> Target;
 
 	UCanvasPanelSlot* PanelSlot;
 	bool IsPlayingEnterAnimation;

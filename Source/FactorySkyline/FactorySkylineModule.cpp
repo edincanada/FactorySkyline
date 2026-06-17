@@ -13,8 +13,8 @@
 
 bool CheckVersion(int Ver)
 {
-	//return Ver >= 136408;
-	return Ver >= 195135;
+	static constexpr int MinimumSupportedGameVersion = 491125;
+	return Ver >= MinimumSupportedGameVersion;
 }
 
 void FFactorySkylineModule::StartupModule() {

@@ -2,7 +2,7 @@
 
 
 #include "FSPipelineSupportOperator.h"
-#include "FGBuildablePolePipe.h"
+#include "Buildables/FGBuildablePolePipe.h"
 #include "Hologram/FGPipelinePoleHologram.h"
 
 

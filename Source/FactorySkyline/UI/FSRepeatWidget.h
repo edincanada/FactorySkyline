@@ -20,19 +20,19 @@ public:
 	UFSRepeatWidget(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* BuildOneButton;
+	TObjectPtr<class UButton> BuildOneButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* BuildAllButton;
+	TObjectPtr<class UButton> BuildAllButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* RepeatBox;
+	TObjectPtr<class UHorizontalBox> RepeatBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* Count;
+	TObjectPtr<class UEditableText> Count;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Title;
+	TObjectPtr<class UTextBlock> Title;
 
 	UFUNCTION()
 	void onBuildOne();

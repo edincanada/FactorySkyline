@@ -34,16 +34,16 @@ public:
 	void onCheckBoxAddChanged(bool IsChecked);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* SelectButton;
+	TObjectPtr<class UButton> SelectButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Readme;
+	TObjectPtr<class UTextBlock> Readme;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UFSFoldWidgetBase* FoldPanel;
+	TObjectPtr<class UFSFoldWidgetBase> FoldPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCheckBox* CheckBoxAdd;
+	TObjectPtr<class UCheckBox> CheckBoxAdd;
 
 	UFSDesign* Design = nullptr;
 	//FButtonStyle ButtonStyle;

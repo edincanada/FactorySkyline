@@ -8,6 +8,13 @@
 
 #include "FGCentralStorageSubsystem.h"
 
+namespace
+{
+	TArray<FItemAmount> GetRecipeIngredients(TSubclassOf<UFGRecipe> Recipe, UObject* WorldContext)
+	{
+		return UFGRecipe::GetIngredients(Recipe, WorldContext);
+	}
+}
 
 void FSInventory::Init(UFSSplineHologramFactory* SplineHologramFactoryParam)
 {
@@ -38,8 +45,7 @@ void FSInventory::AddResource(UFSDesign* Design, int Multiplier)
 			if (!Recipe) return;
 
 			//TODO: Figure out why GetDismantleRefundReturnsMultiplier() gives millions
-			//this->AddResource(UFGRecipe::GetIngredients(Recipe), Buildable->GetDismantleRefundReturnsMultiplier() * Multiplier);
-			this->AddResource(UFGRecipe::GetIngredients(Recipe), 1 * Multiplier);
+			this->AddResource(GetRecipeIngredients(Recipe, SplineHologramFactory), 1 * Multiplier);
 
 		}
 	}
@@ -64,8 +70,7 @@ void FSInventory::AddResource(AFGBuildable* Buildable, int Multiplier)
 	if (!Recipe) return;
 
 	//TODO: Figure out why GetDismantleRefundReturnsMultiplier() gives millions
-	//this->AddResource(UFGRecipe::GetIngredients(Recipe), Buildable->GetDismantleRefundReturnsMultiplier() * Multiplier);
-	this->AddResource(UFGRecipe::GetIngredients(Recipe), 1 * Multiplier);
+	this->AddResource(GetRecipeIngredients(Recipe, Buildable), 1 * Multiplier);
 }
 
 void FSInventory::AddResourceCheckRecipe(FSBuildable Buildable, int Multiplier)
@@ -84,8 +89,8 @@ void FSInventory::AddResourceCheckRecipe(FSBuildable Buildable, int Multiplier)
 	if (!Recipe) return;
 
 	//TODO: Figure out why GetDismantleRefundReturnsMultiplier() gives millions
-	//this->AddResource(UFGRecipe::GetIngredients(Recipe), Buildable->GetDismantleRefundReturnsMultiplier() * Multiplier);
-	this->AddResource(UFGRecipe::GetIngredients(Recipe), 1 * Multiplier);
+	UObject* WorldContext = Buildable.Buildable ? static_cast<UObject*>(Buildable.Buildable) : static_cast<UObject*>(SplineHologramFactory);
+	this->AddResource(GetRecipeIngredients(Recipe, WorldContext), 1 * Multiplier);
 }
 
 void FSInventory::AddResource(const TArray<FItemAmount>& Items, int Multiplier)

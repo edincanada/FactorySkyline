@@ -20,25 +20,25 @@ public:
 	UFSDeletePanel(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* ClearButton;
+	TObjectPtr<class UButton> ClearButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* DestroyButton;
+	TObjectPtr<class UButton> DestroyButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* DeleteButton;
+	TObjectPtr<class UButton> DeleteButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UFSFoldWidgetBase* FoldPanel;
+	TObjectPtr<class UFSFoldWidgetBase> FoldPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* ClearPanel;
+	TObjectPtr<class UCanvasPanel> ClearPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* DestroyPanel;
+	TObjectPtr<class UCanvasPanel> DestroyPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* DeletePanel;
+	TObjectPtr<class UCanvasPanel> DeletePanel;
 
 	UFSDesign* Design = nullptr;
 

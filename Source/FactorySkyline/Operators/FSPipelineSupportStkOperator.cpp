@@ -2,7 +2,7 @@
 
 
 #include "FSPipelineSupportStkOperator.h"
-#include "FGBuildablePolePipe.h"
+#include "Buildables/FGBuildablePolePipe.h"
 
 
 void UFSPipelineSupportStkOperator::GetSelectConnectList(FSBuildable* Buildable, TArray<TWeakObjectPtr<AFGBuildable>>& List) const

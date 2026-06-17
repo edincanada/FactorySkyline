@@ -84,11 +84,12 @@ void UFSKeySettingsWidget::AddEntry(const FName& Action)
 
 void UFSKeySettingsWidget::UpdateKey(const FName& Action, const FSKey& Key, const FText& Desc)
 {
-	UFSKeySettingEntry** Entry = EntryMapping.Find(Action);
-	if (Entry) {
-		(*Entry)->KeyString = Key.ToString();
-		(*Entry)->Title->SetText(Desc);
-		(*Entry)->KeyDesc->SetText(FText::FromString(Key.GetDesc()));
+	TObjectPtr<UFSKeySettingEntry>* Entry = EntryMapping.Find(Action);
+	if (Entry && Entry->Get()) {
+		UFSKeySettingEntry* EntryWidget = Entry->Get();
+		EntryWidget->KeyString = Key.ToString();
+		EntryWidget->Title->SetText(Desc);
+		EntryWidget->KeyDesc->SetText(FText::FromString(Key.GetDesc()));
 	}
 }
 

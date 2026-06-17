@@ -23,10 +23,10 @@ public:
 	UFSInventoryWidget(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* RootPanel;
+	TObjectPtr<class UCanvasPanel> RootPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UVerticalBox* RootBox;
+	TObjectPtr<class UVerticalBox> RootBox;
 
 	void NativeTick(const FGeometry& Geometry, float dt);
 

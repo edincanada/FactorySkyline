@@ -197,8 +197,8 @@ void UFSInput::ApplySetting()
 
 	UFSKeySettingsWidget* Setting = FSkyline->SkylineUI->KeySettingsWidget;
 	for (FName& Action : ConfigList) {
-		UFSKeySettingEntry** Entry = Setting->EntryMapping.Find(Action);
-		if (Entry) BindKey(Action, FSKey::FromString((*Entry)->KeyString));
+		TObjectPtr<UFSKeySettingEntry>* Entry = Setting->EntryMapping.Find(Action);
+		if (Entry && Entry->Get()) BindKey(Action, FSKey::FromString(Entry->Get()->KeyString));
 	}
 }
 

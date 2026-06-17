@@ -26,22 +26,22 @@ public:
 	UFSButtonWidget(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UImage* HighLight;
+	TObjectPtr<class UImage> HighLight;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UImage* Icon;
+	TObjectPtr<class UImage> Icon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* HorBox;
+	TObjectPtr<class UHorizontalBox> HorBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* MenuText;
+	TObjectPtr<class UTextBlock> MenuText;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* RootPanel;
+	TObjectPtr<class UCanvasPanel> RootPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* EditableText;
+	TObjectPtr<class UEditableText> EditableText;
 
 	virtual void NativeConstruct();
 

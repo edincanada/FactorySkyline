@@ -20,75 +20,75 @@ public:
 	UFSAdvancedCopyPanel(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* BuildButton;
+	TObjectPtr<class UButton> BuildButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* SetRepeatButton;
+	TObjectPtr<class UButton> SetRepeatButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* ClipboardButton;
+	TObjectPtr<class UButton> ClipboardButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* SetCircleButton;
+	TObjectPtr<class UButton> SetCircleButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UFSFoldWidgetBase* FoldPanel;
+	TObjectPtr<class UFSFoldWidgetBase> FoldPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* BuildStatus;
+	TObjectPtr<class UTextBlock> BuildStatus;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* BuildPanel;
+	TObjectPtr<class UCanvasPanel> BuildPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* SetRepeatPanel;
+	TObjectPtr<class UCanvasPanel> SetRepeatPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* ClipboardPanel;
+	TObjectPtr<class UCanvasPanel> ClipboardPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* SetCirclePanel;
+	TObjectPtr<class UCanvasPanel> SetCirclePanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* VectorX;
+	TObjectPtr<class UEditableText> VectorX;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* VectorY;
+	TObjectPtr<class UEditableText> VectorY;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* VectorZ;
+	TObjectPtr<class UEditableText> VectorZ;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* RotationX;
+	TObjectPtr<class UEditableText> RotationX;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* RotationY;
+	TObjectPtr<class UEditableText> RotationY;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* RotationZ;
+	TObjectPtr<class UEditableText> RotationZ;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* RotationW;
+	TObjectPtr<class UEditableText> RotationW;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* RotationAngle;
+	TObjectPtr<class UEditableText> RotationAngle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* VectorXBox;
+	TObjectPtr<class UHorizontalBox> VectorXBox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* VectorYBox;
+	TObjectPtr<class UHorizontalBox> VectorYBox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* VectorZBox;
+	TObjectPtr<class UHorizontalBox> VectorZBox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* RotationXBox;
+	TObjectPtr<class UHorizontalBox> RotationXBox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* RotationYBox;
+	TObjectPtr<class UHorizontalBox> RotationYBox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* RotationZBox;
+	TObjectPtr<class UHorizontalBox> RotationZBox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* RotationWBox;
+	TObjectPtr<class UHorizontalBox> RotationWBox;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UHorizontalBox* RotationAngleBox;
+	TObjectPtr<class UHorizontalBox> RotationAngleBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCheckBox* CheckBoxVector;
+	TObjectPtr<class UCheckBox> CheckBoxVector;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCheckBox* CheckBoxRotation;
+	TObjectPtr<class UCheckBox> CheckBoxRotation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCheckBox* CheckBoxCircle;
+	TObjectPtr<class UCheckBox> CheckBoxCircle;
 
 	TWeakObjectPtr<AFGBuildable> CircleCenter = nullptr;
 	UFSDesign* Design = nullptr;

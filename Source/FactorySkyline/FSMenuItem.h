@@ -22,13 +22,13 @@ public:
 	
 	
 	UPROPERTY(SaveGame)
-	TArray<UFSMenuItem*> Elements;
+	TArray<TObjectPtr<UFSMenuItem>> Elements;
 
 	UPROPERTY()
-	UFSMenuEntryBase* CurrentEntry = nullptr;
+	TObjectPtr<UFSMenuEntryBase> CurrentEntry = nullptr;
 
 	UPROPERTY()
-	UFSMenuWidget* CurrentMenuWidget = nullptr;
+	TObjectPtr<UFSMenuWidget> CurrentMenuWidget = nullptr;
 
 
 	virtual UFSMenuEntryBase* AccquireEntry();
@@ -141,7 +141,7 @@ public:
 	static UFSDesignMenu* CopyFrom(UObject* WorldContext, UFSDesignMenu* Source, bool WithDesign);
 
 	UPROPERTY(SaveGame)
-	UFSDesign* Design = nullptr;
+	TObjectPtr<UFSDesign> Design = nullptr;
 
 	UPROPERTY(SaveGame)
 	FText FileName;

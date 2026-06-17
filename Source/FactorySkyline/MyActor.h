@@ -12,7 +12,7 @@ class FACTORYSKYLINE_API AMyActor : public AActor
 	GENERATED_BODY()
 
 	UPROPERTY(Category = Meshes, VisibleAnywhere)
-	UStaticMeshComponent* CubeMesh;
+	TObjectPtr<UStaticMeshComponent> CubeMesh;
 	
 public:	
 	// Sets default values for this actor's properties

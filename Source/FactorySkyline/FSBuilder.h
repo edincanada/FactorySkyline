@@ -95,22 +95,22 @@ public:
 	FRuntimeBuildableInstanceData* TemporaryData = nullptr;
 
 	UPROPERTY()
-	UFSBuildableOperator* AnchorOperator;
+	TObjectPtr<UFSBuildableOperator> AnchorOperator;
 
 	UPROPERTY()
 	TArray< TSubclassOf< class UFGRecipe > > RecipesCache;
 
 	UPROPERTY()
-	AFGHologram* Hologram;
+	TObjectPtr<AFGHologram> Hologram;
 
 	UPROPERTY()
-	TArray<AFGHologram*> HologramList;
+	TArray<TObjectPtr<AFGHologram>> HologramList;
 
 	UPROPERTY()
 	TArray<FTransform> RelativeTransform;
 
 	UPROPERTY()
-	UFSSyncBuild* SyncBuild;
+	TObjectPtr<UFSSyncBuild> SyncBuild;
 
 	//UPROPERTY()
 	//UFSInventory* Inventory;
@@ -156,7 +156,7 @@ public:
 	TWeakObjectPtr<UFSDesignMenu> CurrentDesignMenu;
 
 	UPROPERTY()
-	UFSDesignMenu* NewDesignMenu;
+	TObjectPtr<UFSDesignMenu> NewDesignMenu;
 
 	FSTransformOperator FSTransform;
 	UFSOperatorFactory* OperatorFactory;

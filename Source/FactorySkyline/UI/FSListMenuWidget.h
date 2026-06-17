@@ -21,13 +21,13 @@ public:
 	FReply NativeOnMouseWheel(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* RootPanel;
+	TObjectPtr<class UCanvasPanel> RootPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* ListPanel;
+	TObjectPtr<class UCanvasPanel> ListPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Title;
+	TObjectPtr<class UTextBlock> Title;
 
 	virtual void NativeTick(const FGeometry& Geometry, float dt) override;
 

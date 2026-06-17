@@ -24,10 +24,10 @@ public:
 	UFSLogoWidget(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UUserWidget* Dark;
+	TObjectPtr<class UUserWidget> Dark;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* StartPanel;
+	TObjectPtr<class UCanvasPanel> StartPanel;
 	
 	UFSGettingStartMenu* GettingStart;
 	UFSButtonWidget* StartButton;

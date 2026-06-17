@@ -21,22 +21,22 @@ public:
 	UFSKeySettingsWidget(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* RootPanel;
+	TObjectPtr<class UCanvasPanel> RootPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* MainPanel;
+	TObjectPtr<class UCanvasPanel> MainPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UVerticalBox* Box;
+	TObjectPtr<class UVerticalBox> Box;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* ExitButton;
+	TObjectPtr<class UButton> ExitButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* ResetButton;
+	TObjectPtr<class UButton> ResetButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* ApplyButton;
+	TObjectPtr<class UButton> ApplyButton;
 
 	UFUNCTION()
 	void onExit();
@@ -56,5 +56,5 @@ public:
 	virtual FReply NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);
 
 	UPROPERTY()
-	TMap<FName, UFSKeySettingEntry*> EntryMapping;
+	TMap<FName, TObjectPtr<UFSKeySettingEntry>> EntryMapping;
 };

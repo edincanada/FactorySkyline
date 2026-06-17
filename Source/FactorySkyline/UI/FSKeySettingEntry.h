@@ -20,10 +20,10 @@ public:
 	UFSKeySettingEntry(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Title;
+	TObjectPtr<class UTextBlock> Title;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* KeyDesc;
+	TObjectPtr<class UTextBlock> KeyDesc;
 
 	virtual void NativeOnFocusLost(const FFocusEvent& InFocusEvent);
 	virtual FReply NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent);

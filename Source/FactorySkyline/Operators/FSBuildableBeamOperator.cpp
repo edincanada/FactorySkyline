@@ -4,8 +4,8 @@
 #include "FSBuildableBeamOperator.h"
 #include "Buildables/FGBuildable.h"
 #include "Buildables/FGBuildableConveyorLift.h"
-#include "FGBuildableBeam.h"
-#include "FGBeamHologram.h"
+#include "Buildables/FGBuildableBeam.h"
+#include "Hologram/FGBeamHologram.h"
 #include "Hologram/FGConveyorLiftHologram.h"
 #include "FactorySkyline/FSkyline.h"
 /*

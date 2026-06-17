@@ -18,7 +18,7 @@
 #include "FGCharacterPlayer.h"
 #include "FGBuildableSubsystem.h"
 #include "FactorySkyline/FSBuildableService.h"
-#include "FGBuildablePolePipe.h"
+#include "Buildables/FGBuildablePolePipe.h"
 #include "FGRailroadTrackConnectionComponent.h"
 
 #include "FSBuildable.h"
@@ -166,10 +166,10 @@ public:
 	//TMap<int32, TArray<AFGBuildableConveyorBase*> >* BucketMapping;
 
 	UPROPERTY()
-	TMap<TSubclassOf<AFGBuildable>, UFSBuildableOperator*> Map;
+	TMap<TSubclassOf<AFGBuildable>, TObjectPtr<UFSBuildableOperator>> Map;
 
 	UPROPERTY()
-	UFSBuildableOperator* AbstractOperator = nullptr;
+	TObjectPtr<UFSBuildableOperator> AbstractOperator = nullptr;
 
 	void Init();
 
@@ -181,7 +181,7 @@ public:
 
 	inline FSBuildableType GetType(FSBuildable* Buildable) const
 	{
-		UFSBuildableOperator* const* Ptr;
+		TObjectPtr<UFSBuildableOperator> const* Ptr = nullptr;
 		if (Buildable) {
 			if (Buildable->Buildable) {
 				Ptr = Map.Find(Buildable->Buildable->GetClass());
@@ -197,7 +197,7 @@ public:
 
 	inline void GetSelectConnectList(FSBuildable*& Buildable, TArray<TWeakObjectPtr<AFGBuildable> >& List) const
 	{
-		UFSBuildableOperator* const* Ptr = nullptr;
+		TObjectPtr<UFSBuildableOperator> const* Ptr = nullptr;
 		if (Buildable->Buildable) {
 			Ptr = Map.Find(Buildable->Buildable->GetClass());
 		}

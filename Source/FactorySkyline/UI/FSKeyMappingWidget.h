@@ -23,19 +23,19 @@ public:
 	UFSKeyMappingWidget(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UImage* HighLight;
+	TObjectPtr<class UImage> HighLight;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* Panel;
+	TObjectPtr<class UCanvasPanel> Panel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Title;
+	TObjectPtr<class UTextBlock> Title;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Key;
+	TObjectPtr<class UTextBlock> Key;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UUserWidget* Dark;
+	TObjectPtr<class UUserWidget> Dark;
 
 	void SetTitle(const FText& Title);
 	void SetKey(const FText& Key);

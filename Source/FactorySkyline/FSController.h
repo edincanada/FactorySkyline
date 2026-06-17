@@ -257,13 +257,13 @@ public:
 	AFGHUD* HUD = nullptr;
 
 	UPROPERTY()
-	UFSInput* FSInput = nullptr;
+	TObjectPtr<UFSInput> FSInput = nullptr;
 
 	UPROPERTY(SaveGame)
-	UFSEtc* Etc = nullptr;
+	TObjectPtr<UFSEtc> Etc = nullptr;
 
 	UPROPERTY(SaveGame)
-	UFSDesignMenu* DesignRoot = nullptr;
+	TObjectPtr<UFSDesignMenu> DesignRoot = nullptr;
 
 	//UPROPERTY(SaveGame)
 	FSInventory Inventory;

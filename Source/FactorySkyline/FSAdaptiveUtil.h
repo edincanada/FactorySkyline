@@ -17,10 +17,7 @@ class FACTORYSKYLINE_API UFSAdaptiveUtil : public UObject
 	GENERATED_BODY()
 public:
 
-	int GameVersion;
-
 	void Init();
-	int GetGameVersion();
 
 	UFGFactoryConnectionComponent* GetConveyorConnection(AFGBuildableConveyorBase* Conveyor, int index);
 	TArray< FSplinePointData >* GetConveyorBeltSplineData(AFGBuildableConveyorBelt* Conveyor);

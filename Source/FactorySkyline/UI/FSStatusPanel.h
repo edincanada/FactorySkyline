@@ -45,10 +45,10 @@ class FACTORYSKYLINE_API UFSStatusPanel : public UUserWidget
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UVerticalBox* RootBox;
+	TObjectPtr<class UVerticalBox> RootBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UFSFoldWidgetBase* FoldPanel;
+	TObjectPtr<class UFSFoldWidgetBase> FoldPanel;
 
 	UFUNCTION()
 	void onCheckBoxChanged(bool IsChecked);
@@ -60,7 +60,7 @@ public:
 	void Expand();
 
 	UPROPERTY()
-	TArray<UFSStatusEntry*> WidgetList;
+	TArray<TObjectPtr<UFSStatusEntry>> WidgetList;
 
 	UFSDesign* Design = nullptr;
 

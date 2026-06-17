@@ -2,24 +2,9 @@
 
 
 #include "FSAdaptiveUtil.h"
-#include "FGNetworkLibrary.h"
 
 void UFSAdaptiveUtil::Init()
 {
-	GameVersion = GetGameVersion();
-}
-
-int UFSAdaptiveUtil::GetGameVersion()
-{
-	/*FString Header;
-	FString BuildVersion;
-	FString Version = UFGNetworkLibrary::GetLocalBuildVersion();
-
-	Version.Split(TEXT("-"), &Header, &BuildVersion, ESearchCase::CaseSensitive, ESearchDir::FromEnd);
-	int Ver = FCString::Atoi(*BuildVersion);
-	*/
-	;
-	return FEngineVersion::Current().GetChangelist();
 }
 
 UFGFactoryConnectionComponent* UFSAdaptiveUtil::GetConveyorConnection(AFGBuildableConveyorBase* Conveyor, int index)
@@ -37,30 +22,12 @@ UFGFactoryConnectionComponent* UFSAdaptiveUtil::GetConveyorConnection(AFGBuildab
 
 TArray< FSplinePointData >* UFSAdaptiveUtil::GetConveyorBeltSplineData(AFGBuildableConveyorBelt* Conveyor)
 {
-	if (GameVersion <= 136408) return (TArray< FSplinePointData >*)(((char*)Conveyor) + 1944);
 	return &Conveyor->mSplineData;
-	//return &Conveyor.GetSplineData();
 }
 
 
 void UFSAdaptiveUtil::CopyConveyorLiftAttribute(AFGBuildableConveyorLift* Source, AFGBuildableConveyorLift* Target)
 {
-	if (GameVersion <= 136408) {
-		/*
-		char* a = (char*)Source;
-		char* b = (char*)&(Source->mTopTransform);
-		char* c = (char*)&(Source->mIsReversed);
-		SML::Logging::info(b - a);
-		SML::Logging::info(c - a);*/
-		FTransform* SourceTransform = (FTransform*)(((char*)Source) + 1904);
-		FTransform* TargetTransform = (FTransform*)(((char*)Target) + 1904);
-		*TargetTransform = *SourceTransform;
-		bool* SourceIsReversed = (bool*)(((char*)Source) + 1952);
-		bool* TargetIsReversed = (bool*)(((char*)Target) + 1952);
-		*TargetIsReversed = *SourceIsReversed;
-	}
-	else {
-		Target->mTopTransform = Source->mTopTransform;
-		Target->mIsReversed = Source->mIsReversed;
-	}
+	Target->mTopTransform = Source->mTopTransform;
+	Target->mIsReversed = Source->mIsReversed;
 }

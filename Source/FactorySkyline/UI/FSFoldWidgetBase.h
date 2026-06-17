@@ -18,12 +18,12 @@ public:
 	UFSFoldWidgetBase(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCheckBox* FoldBox;
+	TObjectPtr<class UCheckBox> FoldBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Title;
+	TObjectPtr<class UTextBlock> Title;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UUserWidget* Dark;
+	TObjectPtr<class UUserWidget> Dark;
 
 };

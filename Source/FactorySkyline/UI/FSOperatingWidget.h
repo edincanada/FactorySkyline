@@ -29,31 +29,31 @@ public:
 	UFSOperatingWidget(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UVerticalBox* Box1;
+	TObjectPtr<class UVerticalBox> Box1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UVerticalBox* Box2;
+	TObjectPtr<class UVerticalBox> Box2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UVerticalBox* Box3;
+	TObjectPtr<class UVerticalBox> Box3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UVerticalBox* Box4;
+	TObjectPtr<class UVerticalBox> Box4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* Tab1;
+	TObjectPtr<class UButton> Tab1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* Tab2;
+	TObjectPtr<class UButton> Tab2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* Tab3;
+	TObjectPtr<class UButton> Tab3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* Tab4;
+	TObjectPtr<class UButton> Tab4;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UCanvasPanel* MainPanel;
+	TObjectPtr<class UCanvasPanel> MainPanel;
 
 	void Init();
 	void Load(UFSDesignMenu* Design);

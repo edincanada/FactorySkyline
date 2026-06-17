@@ -12,7 +12,7 @@ class FACTORYSKYLINE_API AHologramHelper : public AActor
 	GENERATED_BODY()
 
 	UPROPERTY(Category = Meshes, VisibleAnywhere)
-	UStaticMeshComponent* CubeMesh;
+	TObjectPtr<UStaticMeshComponent> CubeMesh;
 	UStaticMeshComponent* cubeMeshComponent;
 	
 public:	

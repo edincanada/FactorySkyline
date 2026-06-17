@@ -22,10 +22,10 @@ public:
 	UFSResourceIcon(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UImage* Icon;
+	TObjectPtr<class UImage> Icon;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* Count;
+	TObjectPtr<class UTextBlock> Count;
 
 	void Load(TSubclassOf<UFGItemDescriptor> ItemClass, int Count);
 };

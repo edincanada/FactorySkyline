@@ -48,7 +48,7 @@
 #include "FactorySkyline/Operators/FSBuildableFloodlightOperator.h"
 #include "FactorySkyline/Operators/FSBuildableLightSourceOperator.h"
 #include "Buildables/FGBuildablePriorityPowerSwitch.h"
-#include "FGBuildableBeam.h"
+#include "Buildables/FGBuildableBeam.h"
 #include "Buildables/FGBuildableWidgetSign.h"
 #include "Buildables/FGBuildableLightsControlPanel.h"
 #include "Buildables/FGBuildableCircuitSwitch.h"
@@ -95,7 +95,7 @@
 #include "Hologram/FGPipelineHologram.h"
 #include "Resources/FGBuildingDescriptor.h"
 //#include "FGBuildablePipelineSupport.h"
-#include "FGBuildablePolePipe.h"
+#include "Buildables/FGBuildablePolePipe.h"
 
 #include "FGBuildableSubsystem.h"
 #include "FGFactoryConnectionComponent.h"
@@ -545,7 +545,7 @@ UFSBuildableOperator* UFSOperatorFactory::AcquireOperator(FSBuildable* Buildable
 
 	//UFSBuildableOperator** Ptr = Map.Find(Buildable->GetClass());
 
-	UFSBuildableOperator** Ptr = nullptr;
+	TObjectPtr<UFSBuildableOperator>* Ptr = nullptr;
 
 	if (Buildable) {
 		if (Buildable->Buildable) {
@@ -566,7 +566,7 @@ UFSBuildableOperator* UFSOperatorFactory::AcquireOperator(FSBuildable* Buildable
 	}
 
 	if (Ptr) {
-		Result = *Ptr;
+		Result = Ptr->Get();
 		Result->LoadBuildable(*Buildable);
 	}
 	else {
@@ -621,8 +621,8 @@ UFSBuildableOperator* UFSOperatorFactory::EnsureCache(UClass* Buildable)
 {
 	if (!Buildable) return nullptr;
 
-	UFSBuildableOperator** Ptr = Map.Find(Buildable);
-	if (Ptr) return *Ptr;
+	TObjectPtr<UFSBuildableOperator>* Ptr = Map.Find(Buildable);
+	if (Ptr) return Ptr->Get();
 
 	UFSBuildableOperator* Result = CreateEmptyOperator(Buildable);
 	if (!Result) return nullptr;

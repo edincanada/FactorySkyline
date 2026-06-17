@@ -1412,7 +1412,7 @@ void UFSSelection::EnableHightLight(FSActorMaterial& Cache, FSBuildable Buildabl
 		}
 		else {
 			if (!Cache.UseDefaultOutline) {
-				for (TPair<UStaticMesh*, UHierarchicalInstancedStaticMeshComponent*>& Pair : Cache.copiedComponents) {
+				for (auto& Pair : Cache.copiedComponents) {
 					useNormalHologram = false;
 
 					TArray<UMaterialInterface*> OverridenMaterials;
@@ -1993,7 +1993,7 @@ void UFSSelection::EnableHightLight(FSActorMaterial& Cache, FSBuildable Buildabl
 			else {
 
 				if (!Cache.UseDefaultOutline) {
-					for (TPair<UStaticMesh*, UHierarchicalInstancedStaticMeshComponent*>& Pair : Cache.copiedComponents) {
+					for (auto& Pair : Cache.copiedComponents) {
 						useNormalHologram = false;
 
 						TArray<UMaterialInterface*> OverridenMaterials;
@@ -2310,7 +2310,7 @@ void UFSSelection::DisableHightLight(FSBuildable Buildable)
 				Cache->HologramHelper = nullptr;
 			}
 
-			for (TPair<UStaticMesh*, UInstancedStaticMeshComponent*>& Pair : Cache->OutlineProxyData) {
+			for (auto& Pair : Cache->OutlineProxyData) {
 				Pair.Value->ClearInstances();
 				Pair.Value->UnregisterComponent();
 				Pair.Value->DestroyComponent();
@@ -2332,7 +2332,7 @@ void UFSSelection::DisableHightLight(FSBuildable Buildable)
 			if (Cache->HologramHelper) {
 				Cache->HologramHelper->Destroy();
 				Cache->HologramHelper = nullptr;
-				for (TPair<UStaticMesh*, UHierarchicalInstancedStaticMeshComponent*>& Pair : Cache->copiedComponents) {
+				for (auto& Pair : Cache->copiedComponents) {
 					Pair.Value->ClearInstances();
 				}
 
@@ -2555,7 +2555,7 @@ void UFSSelection::DisableAll()
 				if (pair.Value.HologramHelper) {
 					pair.Value.HologramHelper->Destroy();
 					pair.Value.HologramHelper = nullptr;
-					for (TPair<UStaticMesh*, UHierarchicalInstancedStaticMeshComponent*>& Pair : pair.Value.copiedComponents) {
+					for (auto& Pair : pair.Value.copiedComponents) {
 						Pair.Value->ClearInstances();
 					}
 
@@ -2623,7 +2623,7 @@ void UFSSelection::DisableAll()
 					pair.Value.HologramHelper = nullptr;
 				}
 
-				for (TPair<UStaticMesh*, UInstancedStaticMeshComponent*>& Pair : pair.Value.OutlineProxyData) {
+				for (auto& Pair : pair.Value.OutlineProxyData) {
 
 					Pair.Value->DetachFromComponent(FDetachmentTransformRules::KeepRelativeTransform);
 

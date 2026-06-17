@@ -103,7 +103,7 @@ struct FSavedMaterialInterfaces
 
 public:
 	UPROPERTY()
-	TArray<class UMaterialInterface*> MaterialInterfaces;
+	TArray<TObjectPtr<class UMaterialInterface>> MaterialInterfaces;
 
 public:
 	//FORCEINLINE ~FSavedMaterialInterfaces() = default;
@@ -116,22 +116,22 @@ struct FSActorMaterial
 	TArray<FSMeshMaterial> MeshList;
 
 	UPROPERTY()
-	TMap<class UMeshComponent*, FSavedMaterialInterfaces> SavedMaterialInterfaces;
+	TMap<TObjectPtr<class UMeshComponent>, FSavedMaterialInterfaces> SavedMaterialInterfaces;
 	UPROPERTY()
 	bool hologramVariation = false;
 	UPROPERTY()
 	bool UseDefaultOutline = false;
 	UPROPERTY()
-	TMap<UStaticMesh*, UInstancedStaticMeshComponent*> OutlineProxyData;
+	TMap<TObjectPtr<UStaticMesh>, TObjectPtr<UInstancedStaticMeshComponent>> OutlineProxyData;
 	UPROPERTY()
-	AFGHologram* Hologram;
+	TObjectPtr<AFGHologram> Hologram;
 	//UPROPERTY()
 	//TArray<struct FInstanceHandle*> InstanceHandles;
 	TArray<FInstanceHandle*> InstanceHandles;
 	UPROPERTY()
-	TMap<UStaticMesh*, UHierarchicalInstancedStaticMeshComponent*> copiedComponents;
+	TMap<TObjectPtr<UStaticMesh>, TObjectPtr<UHierarchicalInstancedStaticMeshComponent>> copiedComponents;
 	UPROPERTY()
-	AHologramHelper* HologramHelper;
+	TObjectPtr<AHologramHelper> HologramHelper;
 
 	FInstanceHandle Handle;
 
@@ -178,7 +178,7 @@ public:
 	UPROPERTY()
 	bool UseDefaultOutline = false;
 	UPROPERTY()
-	TMap<UStaticMesh*, UInstancedStaticMeshComponent*> OutlineProxyData;
+	TMap<TObjectPtr<UStaticMesh>, TObjectPtr<UInstancedStaticMeshComponent>> OutlineProxyData;
 	UPROPERTY()
 	AFGHologram* Hologram;
 	//UPROPERTY()
@@ -201,7 +201,7 @@ struct FACTORYSKYLINE_API FComponentSavedInterfaces
 
 public:
 	UPROPERTY()
-	TArray<UMaterialInterface*> SavedInterfaces;
+	TArray<TObjectPtr<UMaterialInterface>> SavedInterfaces;
 
 public:
 	FORCEINLINE ~FComponentSavedInterfaces() = default;
@@ -275,12 +275,12 @@ public:
 	//UMaterialInstanceConstant* Hologram = nullptr;
 
 	UPROPERTY()
-	TArray<UInstancedStaticMeshComponent*> GCFlag;
+	TArray<TObjectPtr<UInstancedStaticMeshComponent>> GCFlag;
 	TMap<TPair<UFGColoredInstanceManager*, UMaterialInterface* >, FSISMNode*> ISMMapping;
 	//TMap<UMeshComponent*, FSMaterialHandle > MaterialMapping;
 	TMap<UMeshComponent*, FSMaterialHandle* > MaterialMapping;
 	UPROPERTY()
-	TArray<AActor*> ActorList;
+	TArray<TObjectPtr<AActor>> ActorList;
 
 	//UPROPERTY()
 	//TMap<AActor*, FSelectedActorInfo> SelectedMap;
@@ -289,22 +289,22 @@ public:
 	TMap<UMeshComponent*, FSMaterialHandle* > MaterialMapping2;
 
 	UPROPERTY()
-	TSet<UMaterialInstanceDynamic*> DynamicInstanceSet;
+	TSet<TObjectPtr<UMaterialInstanceDynamic>> DynamicInstanceSet;
 
 	UPROPERTY()
-	UMaterialInstanceDynamic* SelectMaterial;
+	TObjectPtr<UMaterialInstanceDynamic> SelectMaterial;
 
 	UPROPERTY()
-	UMaterialInstanceDynamic* FocusMaterial;
+	TObjectPtr<UMaterialInstanceDynamic> FocusMaterial;
 
 	UPROPERTY()
-	UMaterialInstanceDynamic* InvisibleMaterial;
+	TObjectPtr<UMaterialInstanceDynamic> InvisibleMaterial;
 
 	UPROPERTY()
-	UMaterialInstanceDynamic* CubeMaterial;
+	TObjectPtr<UMaterialInstanceDynamic> CubeMaterial;
 
 	UPROPERTY()
-	UTexture* Scanline;
+	TObjectPtr<UTexture> Scanline;
 
 	UPROPERTY()
 	bool MaterialisInitialized;
@@ -326,14 +326,14 @@ public:
 	UStaticMesh* MeshFromInstanceData;
 
 	UPROPERTY()
-	AMyActor* Cube;
+	TObjectPtr<AMyActor> Cube;
 
 	TSet<UStaticMeshComponent*> components;
 	UHierarchicalInstancedStaticMeshComponent* comp2;
 	TArray<int32> InstanceCount;
 
 	UPROPERTY()
-	TMap<UStaticMesh*, UInstancedStaticMeshComponent*> OutlineProxyData;
+	TMap<TObjectPtr<UStaticMesh>, TObjectPtr<UInstancedStaticMeshComponent>> OutlineProxyData;
 
 	FSBuildable BuildableEmpty = FSBuildable();
 

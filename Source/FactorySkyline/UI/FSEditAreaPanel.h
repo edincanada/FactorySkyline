@@ -40,20 +40,20 @@ public:
 	void Expand();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* SetItemButton;
+	TObjectPtr<class UButton> SetItemButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* StartCopyButton;
+	TObjectPtr<class UButton> StartCopyButton;
 
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	//class UFSFoldWidgetBase* FoldPanel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UButton* ChangeSelectionBoxButton;
+	TObjectPtr<class UButton> ChangeSelectionBoxButton;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
-	class UEditableText* Count;
+	TObjectPtr<class UEditableText> Count;
 
 	UFSDesign* Design = nullptr;
 };

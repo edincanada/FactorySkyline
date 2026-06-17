@@ -92,7 +92,7 @@ public:
 	UFSBuildableService* BuildableService = nullptr;
 
 	UPROPERTY()
-		UFSOperatorFactory* OperatorFactory = nullptr;
+	TObjectPtr<UFSOperatorFactory> OperatorFactory = nullptr;
 
 	FSConnectSelect* ConnectSelect = nullptr;
 	FAutoDeleteAsyncTask<FSConnectSelect>* ConnectSelectAsyncTask;
